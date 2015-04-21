@@ -1,0 +1,25 @@
+{
+    "routes": [
+        {
+            "path": "/api/v1/locales/%locale%/translations/exposed",
+            "controller": "ride\\web\\rest\\controller\\LocaleExposeController",
+            "action": "indexAction",
+            "id": "api.locales.translations.exposed",
+            "methods": ["GET", "HEAD"]
+        },
+        {
+            "path": "/api/v1/locales/%locale%/translations/exposed",
+            "controller": "ride\\web\\rest\\controller\\LocaleExposeController",
+            "action": "addAction",
+            "id": "api.locales.translations.exposed.add",
+            "methods": ["POST"]
+        },
+        {
+            "path": "/api/v1/locales/%locale%/translations/exposed",
+            "controller": "ride\\web\\rest\\controller\\LocaleExposeController",
+            "action": "removeAction",
+            "id": "api.locales.translations.exposed.remove",
+            "methods": ["DELETE"]
+        }
+    ]
+}
