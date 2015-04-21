@@ -1,0 +1,27 @@
+{
+    "name": "ride/web-i18n-expose",
+    "description": "Ride module to expose the i18n translator to javascript",
+    "license": "MIT",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Joris Vandeweerd",
+            "email": "joris@statik.be"
+        }
+    ],
+    "require": {
+        "ride/app": ">=0.5.0",
+        "ride/app-i18n": ">=0.2.1",
+        "ride/lib-config": ">=0.1.0",
+        "ride/lib-event": ">=0.1.0",
+        "ride/lib-mvc": ">=0.4.0",
+        "ride/lib-i18n": ">=0.1.0",
+        "ride/web": ">=0.1.0",
+    },
+    "autoload": {
+        "psr-0": {
+            "ride\\service\\LocaleExposeService": ["src/"],
+            "ride\\web\\rest\\controller\\LocaleExposeController": ["src/"],
+        }
+    }
+}
