@@ -145,7 +145,7 @@ class LocaleExposeService {
 
         $locale = $this->i18n->getLocale()->getCode();
 
-        $view->addJavascript($web->getRequest()->getBaseUrl() . '/js/translator.js');
+        $view->addJavascript($web->getRequest()->getBaseUrl() . '/js/translator.js', true);
         $view->addInlineJavascript('rideApp.translator.setTranslations(' . json_encode($this->getExposedTranslations($locale)) . ');');
     }
 
