@@ -8,7 +8,7 @@ rideApp.translator = (function($, undefined) {
 
   var setTranslations = function(loadedTranslations) {
     translations = loadedTranslations;
-  }
+  };
 
   var submitTranslationKeys = function() {
     if (url === undefined) {
@@ -18,14 +18,13 @@ rideApp.translator = (function($, undefined) {
 
       return;
     }
-
     if (url !== null && translationKeys.length !== 0) {
       $.post(url, { translationKeys: translationKeys });
     }
   };
 
-  var translate = function(key, arguments) {
-      if (translations === null || translations[key] === undefined) {
+  var translate = function(key, args) {
+      if (translations === null || translations[key] === undefined || translations[key] === null) {
         translationKeys.push(key);
 
         return '[' + key + ']';
@@ -33,9 +32,9 @@ rideApp.translator = (function($, undefined) {
 
       var translation = translations[key];
 
-      if (arguments != undefined) {
-          for (var i in arguments) {
-            translation = translation.replace(new RegExp('%' + i + '%', 'g'), arguments[i]);
+      if (args !== undefined) {
+          for (var i in args) {
+            translation = translation.replace(new RegExp('%' + i + '%', 'g'), args[i]);
           }
       }
 
