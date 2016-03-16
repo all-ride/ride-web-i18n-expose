@@ -23,6 +23,7 @@ rideApp.translator = (function($, undefined) {
     }
   };
 
+
   var translate = function(key, args) {
       if (translations === null || translations[key] === undefined || translations[key] === null) {
         translationKeys.push(key);
