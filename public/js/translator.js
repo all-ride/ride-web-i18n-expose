@@ -1,3 +1,4 @@
+
 var rideApp = rideApp || {};
 
 rideApp.translator = (function($, undefined) {
@@ -18,8 +19,18 @@ rideApp.translator = (function($, undefined) {
 
       return;
     }
-    if (url !== null && translationKeys.length !== 0) {
-      $.post(url, { translationKeys: translationKeys });
+
+
+    var newTranslationKeys = [];
+    for (var i = 0, len = translationKeys.length; i < len; i++) {
+      var key = translationKeys[i];
+      if (translations[key] === undefined) {
+        newTranslationKeys.push(key);
+      }
+    }
+
+    if (url !== null && newTranslationKeys.length !== 0) {
+      $.post(url, { translationKeys: newTranslationKeys });
     }
   };
 
