@@ -1,3 +1,4 @@
+
 var rideApp = rideApp || {};
 
 rideApp.translator = (function($, undefined) {
@@ -8,7 +9,7 @@ rideApp.translator = (function($, undefined) {
 
   var setTranslations = function(loadedTranslations) {
     translations = loadedTranslations;
-  }
+  };
 
   var submitTranslationKeys = function() {
     if (url === undefined) {
@@ -19,12 +20,22 @@ rideApp.translator = (function($, undefined) {
       return;
     }
 
-    if (url !== null && translationKeys.length !== 0) {
-      $.post(url, { translationKeys: translationKeys });
+
+    var newTranslationKeys = [];
+    for (var i = 0, len = translationKeys.length; i < len; i++) {
+      var key = translationKeys[i];
+      if (translations[key] === undefined) {
+        newTranslationKeys.push(key);
+      }
+    }
+
+    if (url !== null && newTranslationKeys.length !== 0) {
+      $.post(url, { translationKeys: newTranslationKeys });
     }
   };
 
-  var translate = function(key, arguments) {
+
+  var translate = function(key, args) {
       if (translations === null || translations[key] === undefined || translations[key] === null) {
         translationKeys.push(key);
 
@@ -33,9 +44,9 @@ rideApp.translator = (function($, undefined) {
 
       var translation = translations[key];
 
-      if (arguments != undefined) {
-          for (var i in arguments) {
-            translation = translation.replace(new RegExp('%' + i + '%', 'g'), arguments[i]);
+      if (args !== undefined) {
+          for (var i in args) {
+            translation = translation.replace(new RegExp('%' + i + '%', 'g'), args[i]);
           }
       }
 
