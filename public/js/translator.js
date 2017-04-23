@@ -1,9 +1,8 @@
-
 var rideApp = rideApp || {};
 
-rideApp.translator = (function($, undefined) {
-  var url = $('body').data('translation-url');
-  var locale = $('html').attr('lang') || 'en';
+rideApp.translator = (function(undefined) {
+  var url = document.body.dataset.translationUrl;
+  var locale = document.documentElement.lang || 'en';
   var translations = null;
   var translationKeys = [];
 
@@ -13,13 +12,9 @@ rideApp.translator = (function($, undefined) {
 
   var submitTranslationKeys = function() {
     if (url === undefined) {
-      alert('Could not submit the translation: no data-translation-url set to the body tag');
-
-      url = null;
-
+      console.warn('Could not submit the translation: no data-translation-url set to the body tag');
       return;
     }
-
 
     var newTranslationKeys = [];
     for (var i = 0, len = translationKeys.length; i < len; i++) {
@@ -30,10 +25,12 @@ rideApp.translator = (function($, undefined) {
     }
 
     if (url !== null && newTranslationKeys.length !== 0) {
-      $.post(url, { translationKeys: newTranslationKeys });
+      var request = new XMLHttpRequest();
+      request.open('POST', url, true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.send(prepareDataString({ translationKeys: newTranslationKeys }));
     }
   };
-
 
   var translate = function(key, args) {
       if (translations === null || translations[key] === undefined || translations[key] === null) {
@@ -53,10 +50,20 @@ rideApp.translator = (function($, undefined) {
       return translation;
   };
 
+  function prepareDataString(data) {
+    var urlEncodedDataPairs = [];
+    for(name in data) {
+      urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+    }
+
+    // Combine the pairs into a single string and replace all %-encoded spaces to
+    // the '+' character; matches the behaviour of browser form submissions.
+    return urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+  }
+
   return {
     setTranslations: setTranslations,
     submitTranslationKeys: submitTranslationKeys,
     translate: translate
   };
-
-})(jQuery);
+})();
