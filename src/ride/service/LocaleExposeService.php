@@ -49,7 +49,7 @@ class LocaleExposeService {
      */
     public function addExposedTranslation($locale, $translationKeys) {
         if (!is_array($translationKeys)) {
-            $translationKeys = array($translationKeys);
+            $translationKeys = explode(',', $translationKeys);
         }
 
         $exposedTranslations = array_flip($this->getExposedTranslationKeys($locale));
@@ -73,7 +73,7 @@ class LocaleExposeService {
      */
     public function removeExposedTranslation($locale, $translationKey) {
         if (!is_array($translationKeys)) {
-            $translationKeys = array($translationKeys);
+            $translationKeys = explode(',', $translationKeys);
         }
 
         $exposedTranslations = array_flip($this->getExposedTranslationKeys($locale));
